@@ -49,7 +49,7 @@ def load_task_file(file_path):
 
 #save the tasks from the file
 def save_task_file(file_path, tasks):
-    with open(file_path, "w") as file:   #write mode from the file
+    with open(file_path, "w") as file:   #write mode in  the file
         for task in tasks:
             #file.write(task)     
             file.write(f"{task}\n") #- f stands for formatted string literal
