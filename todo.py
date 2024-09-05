@@ -1,41 +1,36 @@
 import os   #facility to establish the interaction between the user and the operating system
+import json
 
 #login functionnality
-def read_logins():
-    with open("login.txt", "r") as file:
-        credentials = file.readlines() #readlines multiple reading of lines from text file
-        
-        #print(credentials)
-        #we get indivisual username,password as the credentials like this - 
-        #[['hello', ' 12345hello'], ['admin', ' admin@123'], ['macos', ' macos#789']] 
-        new_credentials = []
-        for i in credentials:
-            field = i.split(',')
-            field[1] = field[1].rstrip()  #rstrip is used to remove \n when we are prinitng the cred.
-            new_credentials.append(field) 
-
-        return new_credentials
+def load_credentials(file):
+    try:
+        with open(file, "r") as filename:
+            credentials = json.load(filename)
+        return credentials            
+    except FileNotFoundError:
+        print("Credentials file not found.")
+        return {}
     
-logins = read_logins()
+def verify_user(username, password, cred):  
+        if username in cred and cred[username] == password:
+           return True
+        else:
+            return False
 
-def login():
+
+def login():   
+    credentials = load_credentials('login.json')
+
+    if not credentials:
+        return
+
     ask_username = str(input('Enter your Username: '))
     ask_password = str(input('Enter your Password: '))
 
-    loggedIn = False
-
-    #[['hello', ' 12345hello'], ['admin', ' admin@123'], ['macos', ' macos#789']]
-    #    i[0]       i[i]           i[0]        i[1]     ...
-    for i in logins:  
-        if i[0] == ask_username and loggedIn == False:
-            if i[1] == ask_password:
-                loggedIn = True 
-
-    if loggedIn == True:
-        print(f"Logged in Suceessfully into {ask_username} account !!")
+    if verify_user(ask_username, ask_password, credentials):
+        print(f"Login successful!! with {ask_username}")
     else:
-        print("Username/ Password incorrect")
-        login()
+        print("Invalid username or password.")
 
 
 #load the tasks from the file
