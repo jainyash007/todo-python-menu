@@ -1,7 +1,7 @@
 how are you
-i am fine
+I am good
 hows it going on ?
 Excellent
-eat oranges apples banana
 todo portal is ready
 fee mgmt task is ready
+update the changes in jira

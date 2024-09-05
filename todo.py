@@ -4,10 +4,10 @@ import os   #facility to establish the interaction between the user and the oper
 def read_logins():
     with open("login.txt", "r") as file:
         credentials = file.readlines() #readlines multiple reading of lines from text file
+        
         #print(credentials)
-
         #we get indivisual username,password as the credentials like this - 
-        #[['hello', ' 12345hello'], ['admin', ' admin@123'], ['macos', ' macos#789']]  
+        #[['hello', ' 12345hello'], ['admin', ' admin@123'], ['macos', ' macos#789']] 
         new_credentials = []
         for i in credentials:
             field = i.split(',')
